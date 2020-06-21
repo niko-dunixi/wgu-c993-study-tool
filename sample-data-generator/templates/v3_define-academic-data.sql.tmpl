@@ -1,0 +1,18 @@
+{{ with .AcademicData }}
+
+CREATE USER academia IDENTIFIED BY {{ RandomPassword }} DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP PROFILE DEFAULT QUOTA UNLIMITED ON USERS;
+
+CREATE TABLE acadeima.teachers (
+    id number primary key,
+    last_name varchar2(30) not null,
+    first_name varchar2(30) not null
+);
+
+CREATE SEQUENCE acadeima.teacher_ids START WITH 10;
+
+{{ range .Teachers}}
+INSERT INTO academia.teachers (id, last_name, first_name)
+VALUES ( acadeima.teacher_ids.nextval, '{{ .LastName }}', '{{ .FirstName }}' );
+{{ end }}
+
+{{ end }}

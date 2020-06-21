@@ -1,0 +1,2 @@
+https://www.oracletutorial.com/getting-started/create-oracle-sample-database-for-practice/
+https://www.oracletutorial.com/getting-started/oracle-sample-database/
