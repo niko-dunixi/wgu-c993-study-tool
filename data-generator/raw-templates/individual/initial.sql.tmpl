@@ -1,0 +1,10 @@
+{{ with .Admin }}
+CREATE USER studentadmin IDENTIFIED BY {{ .AdminPassword }};
+GRANT UNLIMITED TABLESPACE TO studentadmin;
+GRANT ALL PRIVILEGES to studentadmin;
+
+CREATE USER student IDENTIFIED BY {{ .UserPassword }};
+GRANT UNLIMITED TABLESPACE TO student;
+GRANT CREATE SESSION TO student;
+GRANT CREATE TABLE TO student;
+{{ end }}

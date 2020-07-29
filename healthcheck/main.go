@@ -22,6 +22,9 @@ import (
 import "github.com/docker/docker/client"
 
 func main() {
+	// Note: overriding previous HEALTHCHECK: [CMD-SHELL "$ORACLE_BASE/$CHECK_DB_FILE" >/dev/null || exit 1]
+	// Preserving the original health-check. We want to augment, not overrule
+
 	// chown the unix socket because we can't configure the
 	// volume to mount with a specific user.
 	// - https://github.com/moby/moby/issues/2259
