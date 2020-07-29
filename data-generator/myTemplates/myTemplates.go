@@ -4,6 +4,7 @@ import (
 	"github.com/paul-nelson-baker/randomstd"
 	"github.com/shurcooL/httpfs/text/vfstemplate"
 	"io"
+	"log"
 	"strings"
 	"text/template"
 )
@@ -13,6 +14,7 @@ var (
 )
 
 func ExecuteIndividualTemplate(wr io.Writer, name string, data interface{}) error {
+	log.Printf("Executing template: %s", name)
 	return IndividualTemplates().ExecuteTemplate(wr, name, data)
 }
 

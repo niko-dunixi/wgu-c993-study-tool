@@ -1,0 +1,16 @@
+{{ with .SimpleData }}
+
+CREATE USER simpledata IDENTIFIED BY {{ RandomPassword }};
+
+CREATE TABLE simpledata.simpledata (
+    id NUMBER(9) PRIMARY KEY,
+    text VARCHAR2(20)
+);
+CREATE SEQUENCE simpledata.simpledata_pk_sequence;
+
+{{ range .Items }}
+INSERT INTO simpledata.simpledata (id, text)
+VALUES (simpledata.simpledata_pk_sequence.nextval, '{{ . }}');
+{{ end }}
+
+{{ end }}
