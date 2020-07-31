@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-set -ex
+set -e
+source ./bash-common.sh
 ./build.sh
 if ! docker volume ls --format '{{.Name}}' | grep oracle-persistance > /dev/null; then
   docker volume create oracle-persistance
@@ -14,16 +15,5 @@ docker run \
   -p 1521:1521 \
   -p 5500:5500 \
   "my-oracle:latest"
-function is-healthy() {
-  docker_status="$(docker ps --filter name=my-oracle --format '{{.Status}}')"
-  [[ "${docker_status}" =~ .*(healthy) ]]
-}
-set +x
-echo "Please wait, oracle is performing it's setup/startup"
-until is-healthy; do
-  sleep 2s
-  printf '.'
-done
-echo "!"
-echo "Oracle Database is ready, performing my database seeding."
-docker exec -it my-oracle /bin/data-generator
+wait-healthy
+docker exec -it my-oracle /bin/database-hydrator

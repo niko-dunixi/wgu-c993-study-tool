@@ -1,10 +1,11 @@
 {{ with .SimpleData }}
 
 CREATE USER simpledata IDENTIFIED BY {{ RandomPassword }};
+ALTER USER simpledata QUOTA UNLIMITED ON users;
 
 CREATE TABLE simpledata.simpledata (
     id NUMBER(9) PRIMARY KEY,
-    text VARCHAR2(20)
+    text VARCHAR2(45)
 );
 CREATE SEQUENCE simpledata.simpledata_pk_sequence;
 
